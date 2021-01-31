@@ -37,7 +37,10 @@ func main() {
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"
 
-	message := []byte("This is a test email message.")
+	fmt.Print("What message do you want to write? ")
+	e, _ := r.ReadString('\n')
+	messageS := strings.TrimSpace(e)
+	message := []byte(messageS)
 
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
