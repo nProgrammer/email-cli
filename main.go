@@ -17,24 +17,30 @@ func main() {
 	fmt.Print("Password: ")
 	b, _ := r.ReadString('\n')
 	password := strings.TrimSpace(b)
-	// Sender data.
 
-	// Receiver email address.
-	to := []string{
-		"wagnernorbert836@gmail.com",
+	to := []string{}
+
+	i := 0
+	for i != 1 {
+		fmt.Print("Who do you want to send an email to? ")
+		c, _ := r.ReadString('\n')
+		c = strings.TrimSpace(c)
+		to = append(to, c)
+		fmt.Print("Anyone else (yes/no)? ")
+		d, _ := r.ReadString('\n')
+		d = strings.TrimSpace(d)
+		if d != "yes" {
+			i = 1
+		}
 	}
 
-	// smtp server configuration.
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"
 
-	// Message.
 	message := []byte("This is a test email message.")
 
-	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
-	// Sending email.
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
 	if err != nil {
 		fmt.Println(err)
